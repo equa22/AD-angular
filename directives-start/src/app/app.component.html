@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <button
+        class="btn btn-primary"
+        (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+      <br><br>
+      <ul class="list-group">
+        <div *appUnless="onlyOdd">
+          <li
+            class="list-group-item"
+            [ngClass]="{odd: number % 2 != 0}"
+            [ngStyle]="{backgroundColor: number % 2 ? 'yellow' : 'transparent'}"
+            *ngFor="let number of oddNumbers">
+            {{ number }}
+          </li>
+        </div>
+      </ul>
+      <!--
+      <ul class="list-group" *ngIf="onlyOdd">
+        <li
+          class="list-group-item"
+          [ngClass]="{odd: number % 2 != 0}"
+          [ngStyle]="{backgroundColor: number % 2 ? 'yellow' : 'transparent'}"
+          *ngFor="let number of oddNumbers">
+          {{ number }}
+        </li>
+      </ul>
+      <ul class="list-group" *ngIf="!onlyOdd">
+        <li
+          class="list-group-item"
+          [ngClass]="{odd: number % 2 != 0}"
+          [ngStyle]="{backgroundColor: number % 2 ? 'yellow' : 'transparent'}"
+          *ngFor="let number of evenNumbers">
+          {{ number }}
+        </li>
+        <ng-template [ngIf]="!onlyOdd">
+          <li
+            class="list-group-item"
+            [ngClass]="{odd: number % 2 != 0}"
+            [ngStyle]="{backgroundColor: number % 2 ? 'yellow' : 'transparent'}"
+            *ngFor="let number of evenNumbers">
+            {{ number }}
+          </li>
+        </ng-template>
+      </ul>-->
+      <button (click)="value=10" class="btn btn-default">10</button>
+      <button (click)="value=11" class="btn btn-default">11</button>
+      <div [ngSwitch]="value">
+        <p *ngSwitchCase="5">Value is 5</p>
+        <p *ngSwitchCase="10">Value is 10</p>
+        <p *ngSwitchCase="100">Value is 100</p>
+        <p *ngSwitchDefault>Value is default</p>
+      </div>
+      <p appBasicHighlight>Styel me with my directive</p>
+      <p appBetterDirective [defaultColor]="'red'" [highlightColor]="'pink'">Styel me with my directive</p>
+      <p appBetterDirective>Styel me with my directive</p>
+      <ng-template [ngIf]="onlyOdd">
+        <p>Only odd</p>
+      </ng-template>
+    </div>
+  </div>
+</div>

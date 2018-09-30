@@ -1,0 +1,590 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;}
+{\*\expandedcolortbl;;\csgray\c0;\csgray\c100000;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww19720\viewh22020\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 DIRECTIVES; PIPES!!\
+\
+
+\b .ts
+\b0 \
+\'97 u define type of variable\
+Types, Classes, interfaces, etc\'85\
+Don\'92t run in browser and is compiled to JavaScript\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\i \cf0 Decorators \'97 
+\i0 @ngModule, @Component, etc\'85\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 BOOTSTRAPING
+\b0 \
+\
+
+\b COMPONENTS
+\b0 \
+Root components \
+	I\
+Nested components\
+\
+\
+\
+IN [ ] we access attributes\
+In ( ) we access events\
+* changes the dom structure\
+\
+$event \'97> default event provided by dom!\
+\
+\
+
+\b DIRECTIVES \'97> 
+\b0 Instructions in the dom\
+\
+ngStyle \'97 attribute directive\
+\
+
+\b LOCAL REFERENCES \'97> #someName\
+
+\b0 References in HTML ()\
+// type ElementRef\
+// type HTMLInputElement in function\
+\
+
+\b <ng-content></ng-content>
+\b0  \'97 allow us to ut some dynamic content between component tag\
+\
+
+\b LIFECYCLE \'97 hooks\
+
+\b0 (When new component is created)\
+ngOnChanges \'97 is called overtime property changes\
+ngOnInit \'97 when component is initialised\
+ngDoCheck \'97 called during every change detection run (on all events)\
+ngAfterContentInit \'97 called after content (ng-content) has been projected into view\
+ngAfterContentChecked \'97 called after the component\'92s view (and child views) has been initialised \
+ngAfterViewChecked \'97 called every time the view (and child views) has been checked\
+ngOnDestry \'97 called once the component is about to be destroyed (f.e. with ngIf)\
+\
+\
+\
+export class RecipesComponent 
+\b implements
+\b0  OnInit\
+\
+\
+
+\b *****DECORATORS******
+\b0 \
+
+\b EventEmitter 
+\b0 // we create our own event\
+
+\b Output() 
+\b0 // we output our own event\
+
+\b * 
+\b0 allows parent components\
+
+\b Input ()
+\b0  // we want it to be imported to listen to events\
+* we make property bindable from outside\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\i\b \cf0 Import from angular/core\
+ViewChild() \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\i0 \cf0 ContentChild() 
+\b0 \'97 access content child reference\
+\
+
+\b TemplateRef\
+Structural directives! 
+\b0 \'97 custom dom manipulation - like ngIf, ngFor, etc\'85\
+
+\b ngSwitch
+\b0 \
+\
+_____ DIRECTIVES ______\
+
+\b HostListener\
+HostBinding\
+Renderer2\
+\
+\
+
+\b0 _____ SERVICES ______\
+* inject service in constructor\
+* add in Providers \'97 cause it provides some services\
+* Hierarchical Injector \'97 if we inject service in components all will get same instance (all children components will get same instance) 
+\b - with provider
+\b0 \
+\'97> AppModule \'97> AppComponent \'97> Any Other Component\
+* if we want to inject service in service we use 
+\b @Injectable() 
+\b0 \'97 cause all other (D, C, \'85) already have some meta data status \'97 
+\b You don\'92t add it to service, but we add it to service we want to inject some services\
+\
+You can EMIT status from one component and SUBSCRIBE from another!\
+\
+\
+\
+ROUTING\
+
+\b0 routerLink || [routerLink]=\'93[\'91/home\'92, \'91about\'92]\'94 \'97> /home/about\
+routerLinkActive=\'93class\'94 \'97> add class on active routerLink or his parent\
+[routerLinkActiveOptions]="\{exact: true\}" \'97> only if is AXACTLY same\
+this.router.navigate(['/servers']);\
+\
+
+\b ActivatedRoute
+\b0 \
+\
+
+\b GET ID from params 
+\b0 this.route.snapshot.params['id']\
+\
+// if youre on component already, it won\'92t render it again \'97> snapshot works only once!!\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ul \ulc0 this.route.params \ulnone are observable\
+Kill subscription if not needed any more!! (On routes for example)\
+\'97> subscription lives even if component is destroyed\
+** query params and #\
+[routerLink]="['/servers', 5, 'edit']"\
+[queryParams]="\{allowEdit: '1', date: '01-02-2019'\}"\
+fragment="loading"\
+\
+this.router.navigate(['/servers', 'id', 'edit'], \{queryParams: \{allowEdit: 1, date: '01-02-2019'\}, fragment: 'loading'\});\
+\
+{\field{\*\fldinst{HYPERLINK "http://localhost:4200/servers/5/edit?allowEdit=1&date=01-02-2019#loading"}}{\fldrslt 
+\i http://localhost:4200/servers/5/edit?allowEdit=1&date=01-02-2019#loading}}
+\i \
+\
+this.route.snapshot.queryParams\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 STRING TO NUM:: +\'941\'94 :) \
+\
+routerLinkActive=\'93active\'94 
+\b0 \'97> class active on route
+\b \
+\
+<router-outlet> Also used for children!!!\
+\
+Router inside the router\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b0 \cf0 \{ path: 'users', component: UsersComponent, children: [\
+    \{ path: ':id/:name', component: UserComponent \}\
+  ] \},\
+\
+\
+this.router.navigate(['new'], \{relativeTo: this.route\});\
+\
+this.router.navigate(['edit'], \{relativeTo: this.route, queryParamsHandling: 'preserve'\}) // 'merge' also\
+// save or add params!\
+/\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \ul \ulc0 CanActivate !!!!! 
+\b0  (
+\i0 In routes app \'97 auth-guard
+\i )\
+\
+\
+
+\b INTERFACE 
+\i0\b0 \ulnone forces class to provide some logic\
+interface Server \{\
+	id: number;\
+	name: string;\
+	status: string;\
+\}\
+export class ServerResolver implements Resolve<Server> \
+\
+Same to:\
+export class ServerResolver implements Resolve<\{id: number, name: string, status: string\}>\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 RESOLVER ========= asynchronous data!\
+
+\b0 Allow us to run some code before a route is rendered \'97> will always render component with preloader\
+\
+\'97> can access through route.data\
+\
+ROUTES ON SERVER\
+\'97>  urls are always parsed by server first\
+* Server has to bi configured so, that on 404error server will route to index\
+* if you can\'92t make that to work or you have to support older browsers, you can enable \'93#\'94\
+\
+@NgModule(\{\
+	imports: [\
+		RouterModule.forRoot(appRoutes, 
+\b \{useHash: true\}
+\b0 )\
+	],\
+	exports: [ RouterModule ]\
+\})\
+App says to browser \'93Hey! Only care about first part of url\'85I\'92ll take care for rest of it:)\'94\
+\
+\
+\
+\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\i\b \cf0 \ul \ulc0 OBSERVABLES (old promises and callbacks)\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\i0 \cf0 \ulnone import \{ Observable, Observer, Subscription \} from 'rxjs/Observable';\
+
+\b0 \
+OBSERVABLE  == various data sources (User input) : events, http requests, triggered in code, \'85.\
+.\
+.\
+.	\
+OBSERVER == \'93my code\'94 => handle data, handle error, handle completion\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\i \cf0 import 'rxjs/Rx';  \'97> need to import sometimes you work with observable operators (example interval)\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\i0 \cf0 const myNumbers = Observable.interval(1000);\
+\
+	const myObservable = Observable.create((observer: Observer<string>) => \{\
+  		setTimeout(() => \{\
+  			observer.next('first package');	// next emits a normal data package\
+  		\}, 2000);\
+  		setTimeout(() => \{\
+  			observer.next('second package');	// next emits a normal data package\
+  		\}, 4000);\
+  		setTimeout(() => \{\
+  			observer.error('this does not work');	// next emits a normal data package\
+  		\}, 5000);\
+  	\});\
+\
+  	myObservable.subscribe(\
+  		(data: string) => \{ console.log(data); \},\
+  		(error: string) => \{ console.error(error); \},\
+  		() => \{ console.log('completed'); \}
+\i \
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\i0 \cf0 \ul \ulc0 YOU SHOULD ALWAYS BE SURE THAT YOU UNSUBSCRIBE WHEN YOU LIVE THE COMPONENT!!!!\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ulnone Unsubscribe using Subscription  (customObsSeubscription: Subscription;)\
+this.customObsSubscription.unsubscribe()\
+\
+{\field{\*\fldinst{HYPERLINK "http://reactivex.io/"}}{\fldrslt 
+\b http://reactivex.io/}}
+\b \
+\
+SUBJECT 
+\b0  ==> is observable and observer at the same time (similar to eventEmitter)\
+.next - to push new value\
+.subscribe - to get new value\
+\
+Operators\'85 \
+		Observable.interval(1000)\
+  		.map(\
+  			(data: number) => \{\
+  				return data*2;\
+  			\}\
+  		);\
+(Return double value)\
+\
+Rxjs compat package for accessing \'91rxjs/Observable			\'97 
+\f1\fs22 \cf2 \cb3 \CocoaLigature0 npm install --save rxjs-compat
+\f0\fs24 \cf0 \cb1 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\i \cf0 import \{ Observable, Observer, Subscription, interval \} from 'rxjs';\
+import \{ map \} from 'rxjs/operators';\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\i0 \cf0 (Different imports)\
+\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\i\b \cf0 \ul \ulc0 FORMS\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\i0\b0 \cf0 \ulnone 1.approach\
+	
+\b Template-Driven form 
+\b0 (Angular infers the form object from the DOM)\
+2.approach\
+
+\b 	Reactive 
+\b0 (Form is created programmatically and synchronised with the DOM \'97 you create a form in .ts)\
+\
+\
+Import module that javascript automatically create form object for you. \'97 change <form> in directive\
+import \{ FormsModule \} from '@angular/forms';\
+..\
+@NgModule(\{\
+...\
+  imports: [\
+    \'85,\
+    
+\b FormsModule
+\b0 ,\
+    \'85\
+\'85\
+\})\
+\
+add 
+\b ngModel 
+\b0 (without =\'93\'94) and 
+\b name=\'93username\'94 
+\b0 (example)\
+\
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">\
+\
+import \{ NgForm \} from '@angular/forms';\
+\
+ onSubmit(form: NgForm) \{\
+  	console.log(form.value)\
+  \}\
+\
+DIRECTIVES ON FORM\
+required\
+ email\
+\
+	<input \
+              type="email" \
+              id="email" \
+              class="form-control"\
+              ngModel\
+              name="email"\
+              required\
+              email\
+              #email="ngModel">\
+              <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email!</span>\
+\
+
+\b Default value!
+\b0 \
+	<select \
+            id="secret" \
+            class="form-control"\
+            [ngModel]="'pet'" ||  [ngModel]=\'93defaultValue\'94\
+            name="secret"\
+            required>\
+            <option value="pet">Your first Pet?</option>\
+            <option value="teacher">Your first teacher?</option>\
+          </select>\
+\
+\
+\
+Classes ng-touched, ng-valid, ng-invalid, ng-dirty,\'85.\
+\'97> info of state of our elements\
+\
+
+\b VALIDATORS
+\b0 \
+{\field{\*\fldinst{HYPERLINK "https://angular.io/api/forms/Validators"}}{\fldrslt https://angular.io/api/forms/Validators}}\
+\
+
+\b DIRECTIVES\
+{\field{\*\fldinst{HYPERLINK "https://angular.io/api?type=directive"}}{\fldrslt 
+\b0 https://angular.io/api?type=directive}}
+\b0 \
+\
+\
+You can group fields with 
+\b ngModelGroup="userData" 
+\b0 and will be displayed in group \
+(Also 
+\b #userData="ngModelGroup"
+\b0 )\
+.. userData: \{ name: \'91name\'92, mail:\'92\'92\}\'85\}\
+\
+// set value  for all controls\
+suggestUserName() \{\
+    const suggestedName = 'Superuser';\
+    this.signupForm.setValue(\{\
+    	userData: \{\
+    		username: suggestedName,\
+    		email: ''\
+    	\},\
+    	secret: 'pet',\
+    	questionAnswer: 'Rex',\
+    	gender: 'male'\
+    \})\
+    //this.username = suggestedName;\
+  \}\
+\
+\
+// change only  part of form\
+
+\b this.signupForm.form.patchValue(\{\
+    	userData: \{\
+    		username: suggestedName\
+    	\}\
+    \})\
+\
+this.signupForm.reset();\
+
+\b0 // reset form with all classes and all\
+\
+[ngModel]=\'93\'94. >>>>> ONE WAY BINDING\
+[(ngMOdel)]=\'93\'94  >>>>> TWO WAY BINDING\
+\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\i\b \cf0 \ul \ulc0 REACTIVE FORMS
+\i0\b0 \ulnone \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 import \{ ReactiveFormsModule \} from '@angular/forms';\
+
+\b0 @NgModule(\{\
+  \'85\
+  imports: [\
+    ..,\
+    ReactieFormsModule,\
+    \'85\
+  ],\
+ \'85\
+\})\
+\
+\
+ngOnInit() \{\
+  	this.signupForm = new FormGroup(\{\
+  		'username': new FormControl(null),\
+  		'email': new FormControl(null),\
+  		'gender': new FormControl('male')\
+  	\});\
+  \}\
+ <form [formGroup]="signupForm">\
+        <div class="form-group">\
+          <label for="username">Username</label>\
+          <input\
+            type="text"\
+            id="username"\
+            formControlName="username"\
+            class="form-control">\
+        </div>\
+\'85\'85\
+</form>\
+	<span \
+              *ngIf="!signupForm.get('username').valid && signupForm.get('username').touched"\
+              class="help-block">Please enter a valid username!</span>\
+// get element with .get(\'91name) or get.(someGroup.name)\
+\
+\
+\
+
+\b (<FormArray>this.recipeForm.get('ingredients')).push(\
+      new FormGroup(\{\
+        'name': new FormControl(),\
+        'value': new FormControl()\
+      \})\
+    )\
+
+\b0 Always add type\
+\
+\
+
+\b CUSTOM VALIDATORS!!!\
+\
+Asynchronous validators are passed as third argument\
+
+\b0 While checking, angular add class \'93pending\'94\
+\
+You can listen to two observables (
+\b statusChanges
+\b0  and
+\b  valueChanges
+\b0 )\
+this.signupForm.valueChanges.subscribe(\
+      (value) => console.log(value)\
+    )\
+You can also observe controls!
+\b \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\i\b0 \cf0 \ul \ulc0 In Promise we don\'92t return, we RESOLVE!!!
+\i0 \ulnone \
+\
+\
+\
+\
+\
+
+\b \ul PIPES\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b0 \cf0 \ulnone \'97> Transforms some output\
+\{\{ server.started | date:'fullDate' | uppercase \}\}\
+\
+Uppercase, date, \ul \ulc0 async\ulnone \'85. {\field{\*\fldinst{HYPERLINK "https://angular.io/api?query=pipe"}}{\fldrslt https://angular.io/api?query=pipe}}\
+
+\b PARAMTERES COME AFTER :\
+
+\b0 \
+\
+PIPE needs transform method, which takes first argument as a value and returns some values (all other arguments are  parameters)\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\i \cf0 Pipes have to be added to declarations in app.module.ts\
+Pipes don\'92t update results after update
+\b \
+\
+import \{ PipeTransform, Pipe \} from '@angular/core';\
+\
+@Pipe(\{\
+	name: 'shorten'\
+\})\
+\
+export class ShortenPipe implements PipeTransform \{\
+	transform(value:any) \{\
+		if(value.length > 10) \{\
+			return value.substr(0, 10) + ' ...';\
+		\}\
+		return value;\
+	\}\
+\}\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\i0\b0 \cf0 \
+\
+@Pipe(\{\
+  name: 'filter',\
+  
+\b pure: false
+\b0 		\'97> pipe gets calculated every time when anything on page change\
+\})\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ul \ulc0 \{\{ appStatus | async \}\}\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ulnone Gets fired after promise is resolved\
+\
+\
+
+\b \
+
+\b0 \
+\
+\
+\
+}
